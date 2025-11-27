@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'game/game_screen.dart';
 import 'game/game_state.dart';
+import 'game/home_screen.dart';
 
 void main() {
   runApp(
@@ -17,14 +18,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final game = context.watch<GameState>();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ahorcado',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+          brightness: game.isDarkMode ? Brightness.dark : Brightness.light,
+        ),
         useMaterial3: true,
       ),
-      home: const GameScreen(),
+      home: const HomeScreen(),
     );
   }
 }

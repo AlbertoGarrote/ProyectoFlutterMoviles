@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'game_state.dart';
+import 'home_screen.dart';
 
 class GameScreen extends StatelessWidget {
   const GameScreen({super.key});
@@ -9,11 +10,50 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final game = context.watch<GameState>();
 
+    // Partida terminada
+    if (game.isGameOver) {
+      bool partidaGanada = !game.lose; // Ganaste si no perdiste en ninguna palabra
+      return Scaffold(
+        appBar: AppBar(title: const Text("Ahorcado")),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                partidaGanada
+                    ? "¡Ganaste la partida! 🎉"
+                    : "Perdiste la partida 😢",
+                style: const TextStyle(fontSize: 28),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  game.startNewMatch(); // Reinicia la partida en GameState
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        (route) => false, // Elimina la pila de navegación
+                  );
+                },
+                child: const Text("Volver a inicio"),
+              )
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Pantalla de juego normal
     return Scaffold(
       appBar: AppBar(title: const Text("Ahorcado")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          Text(
+            "Palabra ${game.currentIndex + 1} de ${game.words.length}",
+            style: const TextStyle(fontSize: 20),
+          ),
           Text(
             "Errores: ${game.mistakes}/${game.maxMistakes}",
             style: const TextStyle(fontSize: 24),
@@ -48,17 +88,6 @@ class GameScreen extends StatelessWidget {
               );
             }),
           ),
-
-          // Mensaje final
-          if (game.win) const Text("¡Ganaste!", style: TextStyle(fontSize: 28)),
-          if (game.lose)
-            Text("Perdiste. La palabra era: ${game.secretWord}",
-                style: const TextStyle(fontSize: 20)),
-
-          ElevatedButton(
-            onPressed: game.reset,
-            child: const Text("Reiniciar"),
-          )
         ],
       ),
     );
