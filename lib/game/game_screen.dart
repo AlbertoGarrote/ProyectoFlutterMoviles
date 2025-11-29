@@ -58,6 +58,13 @@ class GameScreen extends StatelessWidget {
             "Errores: ${game.mistakes}/${game.maxMistakes}",
             style: const TextStyle(fontSize: 24),
           ),
+          //Imagen
+          Image.asset(
+            game.CurrentImage,
+            width: 200,
+            height: 250,
+            fit: BoxFit.contain,
+          ),
 
           // Palabra
           Row(

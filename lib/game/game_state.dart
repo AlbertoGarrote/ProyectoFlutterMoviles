@@ -4,11 +4,12 @@ import 'word_list.dart';
 
 class GameState extends ChangeNotifier {
   // Palabras de la partida
-  late List<String> words;
+  late List<Adivinanza> words;
   int currentIndex = 0;
 
   // Estado actual de la palabra
   late String secretWord;
+  late String secretImage;
   List<String> guessed = [];
   int mistakes = 0;
   int maxMistakes = 6;
@@ -30,7 +31,8 @@ class GameState extends ChangeNotifier {
   }
 
   void resetCurrentWord() {
-    secretWord = words[currentIndex];
+    secretImage = words[currentIndex].image;
+    secretWord = words[currentIndex].word;
     guessed = [];
     mistakes = 0;
 
@@ -49,6 +51,8 @@ class GameState extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  String get CurrentImage => secretImage;
 
   void guess(String letter) {
     if (guessed.contains(letter) || isGameOver) return;
