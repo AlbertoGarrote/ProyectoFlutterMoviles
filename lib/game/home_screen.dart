@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'game_state.dart';
 import 'game_screen.dart';
+import 'credits_screen.dart';
 import 'settings_screen.dart';
 import 'difficulty_screen.dart';
 
@@ -24,6 +25,15 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const SettingsScreen()),
               );
             },
+          ),
+          IconButton(
+            icon: const Icon(Icons.flag),
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const CreditsScreen())
+              );
+            }
           )
         ],
       ),
@@ -45,7 +55,6 @@ class HomeScreen extends StatelessWidget {
               },
               child: const Text("Jugar"),
             ),
-
           ],
         ),
       ),

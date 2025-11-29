@@ -15,24 +15,6 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Nivel de dificultad
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Nivel de dificultad:"),
-                DropdownButton<String>(
-                  value: game.difficulty,
-                  items: const [
-                    DropdownMenuItem(value: "Fácil", child: Text("Fácil")),
-                    DropdownMenuItem(value: "Medio", child: Text("Medio")),
-                    DropdownMenuItem(value: "Difícil", child: Text("Difícil")),
-                  ],
-                  onChanged: (value) {
-                    if (value != null) game.setDifficulty(value);
-                  },
-                ),
-              ],
-            ),
 
             const SizedBox(height: 20),
 
