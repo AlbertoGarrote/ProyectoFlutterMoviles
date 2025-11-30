@@ -38,7 +38,6 @@ class SettingsScreen extends StatelessWidget {
                 labelText: "Nombre de usuario",
                 border: OutlineInputBorder(),
               ),
-              controller: TextEditingController(text: game.username),
               onChanged: (value) => game.setUsername(value),
             ),
           ],
