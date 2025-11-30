@@ -23,13 +23,36 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Inazuma Eleven: Ahorcado',
+
+      //Modo claro
       theme: ThemeData(
+        brightness: Brightness.light,
+        //Color botones
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
-          brightness: game.isDarkMode ? Brightness.dark : Brightness.light,
+          brightness: Brightness.light,
         ),
         useMaterial3: true,
       ),
+
+      //Tema oscuro
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        //Color botones
+        colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.orange,
+        brightness: Brightness.dark,
+        ),
+        scaffoldBackgroundColor: Colors.blueGrey,  // Fondo
+        appBarTheme: const AppBarTheme(
+        backgroundColor: Color(0xFF1E1E1E),
+        ),
+        useMaterial3: true,
+      ),
+
+      // Cambio entre temas
+      themeMode: game.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+
       home: const HomeScreen(),
     );
   }

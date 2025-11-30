@@ -12,10 +12,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final game = context.watch<GameState>();
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ahorcado"),
+
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -41,6 +40,11 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+                "assets/LOGO.png",
+              width: 600,
+            ),
+            const SizedBox(height: 50),
             Text(
               "Bienvenido, ${game.username}!",
               style: const TextStyle(fontSize: 24),

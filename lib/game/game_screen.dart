@@ -14,7 +14,6 @@ class GameScreen extends StatelessWidget {
     if (game.isGameOver) {
       bool partidaGanada = !game.lose; // Ganaste si no perdiste en ninguna palabra
       return Scaffold(
-        appBar: AppBar(title: const Text("Ahorcado")),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +45,6 @@ class GameScreen extends StatelessWidget {
 
     // Pantalla de juego normal
     return Scaffold(
-      appBar: AppBar(title: const Text("Inazuma Eleven: Ahorcado")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
