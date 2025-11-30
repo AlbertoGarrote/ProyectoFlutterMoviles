@@ -83,7 +83,11 @@ class GameState extends ChangeNotifier {
     return false;
   }
 
-  bool get win => secretWord.split("").every(guessed.contains);
+  bool get win {
+    // Ignorar los espacios
+    final letters = secretWord.replaceAll(' ', '').split('');
+    return letters.every(guessed.contains);
+  }
   bool get lose => mistakes >= maxMistakes;
 
   void setDifficulty(String value) {

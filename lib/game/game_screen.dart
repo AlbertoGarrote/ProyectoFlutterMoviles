@@ -46,7 +46,7 @@ class GameScreen extends StatelessWidget {
 
     // Pantalla de juego normal
     return Scaffold(
-      appBar: AppBar(title: const Text("Ahorcado")),
+      appBar: AppBar(title: const Text("Inazuma Eleven: Ahorcado")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -70,6 +70,17 @@ class GameScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: game.secretWord.split("").map((char) {
+              // Mostrar espacio directamente
+              if (char == ' ') {
+                return const Padding(
+                  padding: EdgeInsets.all(6),
+                  child: Text(
+                    " ",
+                    style: TextStyle(fontSize: 32),
+                  ),
+                );
+              }
+
               final show = game.guessed.contains(char);
               return Padding(
                 padding: const EdgeInsets.all(6),

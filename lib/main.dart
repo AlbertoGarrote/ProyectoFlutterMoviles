@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Ahorcado',
+      title: 'Inazuma Eleven: Ahorcado',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
