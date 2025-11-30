@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.flag),
+            icon: const Icon(Icons.people),
             onPressed: (){
               Navigator.push(
                 context,
