@@ -30,7 +30,7 @@ const wordList = [
 
   //Jugadores
   Adivinanza(word: "ANGELO GABRINI", image: "assets/Siluetas/Personajes/Silu_Angelo_Gabrini.png"),
-  Adivinanza(word: "AIRON SHERWIND", image: "assets/Siluetas/Personajes/Silu_Arion_Sherwind.png"),
+  Adivinanza(word: "ARION SHERWIND", image: "assets/Siluetas/Personajes/Silu_Arion_Sherwind.png"),
   Adivinanza(word: "AXEL BLAZE", image: "assets/Siluetas/Personajes/Silu_Axel_Blaze.png"),
   Adivinanza(word: "BYRON LOVE", image: "assets/Siluetas/Personajes/Silu_Byron_Love.png"),
   Adivinanza(word: "CHANGSU CHOI", image: "assets/Siluetas/Personajes/Silu_Changsu_Choi.png"),

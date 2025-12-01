@@ -10,101 +10,127 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final game = context.watch<GameState>();
 
-    // Partida terminada
+    // PANTALLA FINAL (Ganaste / Perdiste)
     if (game.isGameOver) {
-      bool partidaGanada = !game.lose; // Ganaste si no perdiste en ninguna palabra
+      bool partidaGanada = !game.lose;
+
       return Scaffold(
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                partidaGanada
-                    ? "¡Ganaste la partida! 🎉"
-                    : "Perdiste la partida 😢",
-                style: const TextStyle(fontSize: 28),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  game.startNewMatch(); // Reinicia la partida en GameState
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (_) => const HomeScreen()),
-                        (route) => false, // Elimina la pila de navegación
-                  );
-                },
-                child: const Text("Volver a inicio"),
-              )
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  partidaGanada
+                      ? "¡Ganaste la partida! 🎉"
+                      : "Perdiste la partida 😢",
+                  style: const TextStyle(fontSize: 28),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    game.startNewMatch();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => const HomeScreen()),
+                          (route) => false,
+                    );
+                  },
+                  child: const Text("Volver al inicio"),
+                )
+              ],
+            ),
           ),
         ),
       );
     }
 
-    // Pantalla de juego normal
+    // PANTALLA DE JUEGO NORMAL
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            "Palabra ${game.currentIndex + 1} de ${game.words.length}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            "Errores: ${game.mistakes}/${game.maxMistakes}",
-            style: const TextStyle(fontSize: 24),
-          ),
-          //Imagen
-          Image.asset(
-            game.CurrentImage,
-            width: 200,
-            height: 250,
-            fit: BoxFit.contain,
-          ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
 
-          // Palabra
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: game.secretWord.split("").map((char) {
-              // Mostrar espacio directamente
-              if (char == ' ') {
-                return const Padding(
-                  padding: EdgeInsets.all(6),
-                  child: Text(
-                    " ",
-                    style: TextStyle(fontSize: 32),
+                  Text(
+                    "Palabra ${game.currentIndex + 1} de ${game.words.length}",
+                    style: const TextStyle(fontSize: 20),
                   ),
-                );
-              }
 
-              final show = game.guessed.contains(char);
-              return Padding(
-                padding: const EdgeInsets.all(6),
-                child: Text(
-                  show ? char : "_",
-                  style: const TextStyle(fontSize: 32),
-                ),
-              );
-            }).toList(),
+                  const SizedBox(height: 10),
+
+                  Text(
+                    "Errores: ${game.mistakes}/${game.maxMistakes}",
+                    style: const TextStyle(fontSize: 24),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  // Imagen responsiva
+                  Image.asset(
+                    game.CurrentImage,
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.30,
+                    fit: BoxFit.contain,
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Palabra
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: game.secretWord.split(" ").map((word) {
+                      return Wrap(
+                        alignment: WrapAlignment.center,
+                        children: word.split("").map((char) {
+                          final show = game.guessed.contains(char);
+                          return Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Text(
+                              show ? char : "_",
+                              style: const TextStyle(fontSize: 32),
+                            ),
+                          );
+                        }).toList(),
+                      );
+                    }).toList(),
+                  ),
+
+
+                  const SizedBox(height: 20),
+
+                  // Teclado A-Z RESPONSIVE
+                  Wrap(
+                    spacing: 5,
+                    runSpacing: 5,
+                    alignment: WrapAlignment.center,
+                    children: List.generate(26, (i) {
+                      String letter = String.fromCharCode(65 + i);
+                      bool disabled = game.guessed.contains(letter) || game.win || game.lose;
+
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.16,
+                        child: ElevatedButton(
+                          onPressed: disabled ? null : () => game.guess(letter),
+                          child: Text(letter),
+                        ),
+                      );
+                    }),
+                  ),
+
+                  const SizedBox(height: 40),
+                ],
+              ),
+            ),
           ),
-
-          // Letras A-Z
-          Wrap(
-            spacing: 5,
-            runSpacing: 5,
-            children: List.generate(26, (i) {
-              String letter = String.fromCharCode(65 + i);
-              bool disabled = game.guessed.contains(letter) || game.win || game.lose;
-
-              return ElevatedButton(
-                onPressed: disabled ? null : () => game.guess(letter),
-                child: Text(letter),
-              );
-            }),
-          ),
-        ],
+        ),
       ),
     );
   }
