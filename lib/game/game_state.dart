@@ -7,6 +7,9 @@ class GameState extends ChangeNotifier {
   late List<Adivinanza> words;
   int currentIndex = 0;
 
+  int score = 0;
+  int totalScore = 0;
+
   // Estado actual de la palabra
   late String secretWord;
   late String secretImage;
@@ -26,6 +29,8 @@ class GameState extends ChangeNotifier {
   // Inicia una nueva partida de 4 palabras
   void startNewMatch() {
     words = List.generate(4, (_) => wordList[Random().nextInt(wordList.length)]);
+    totalScore = 0;
+    score = 0;
     currentIndex = 0;
     resetCurrentWord();
   }
@@ -35,6 +40,7 @@ class GameState extends ChangeNotifier {
     secretWord = words[currentIndex].word;
     guessed = [];
     mistakes = 0;
+    score = 100;
 
     // Ajusta maxMistakes según dificultad
     switch (difficulty) {
@@ -58,10 +64,15 @@ class GameState extends ChangeNotifier {
     if (guessed.contains(letter) || isGameOver) return;
 
     guessed.add(letter);
-    if (!secretWord.contains(letter)) mistakes++;
+    if (!secretWord.contains(letter)) {
+      mistakes++;
+      score -= 15;
+      if (score < 0) score = 0;
+    }
 
     // Si adivina la palabra
     if (win) {
+      totalScore += score;
       // Si era la última palabra, no reseteamos
       if (currentIndex < words.length - 1) {
         currentIndex++;

@@ -22,6 +22,10 @@ class GameScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
+                  "Puntuación total: ${game.totalScore}",
+                  style: const TextStyle(fontSize: 26),
+                ),
+                Text(
                   partidaGanada
                       ? "¡Ganaste la partida! 🎉"
                       : "Perdiste la partida 😢",
@@ -70,6 +74,14 @@ class GameScreen extends StatelessWidget {
                     "Errores: ${game.mistakes}/${game.maxMistakes}",
                     style: const TextStyle(fontSize: 24),
                   ),
+                  Text(
+                    "Puntuación palabra: ${game.score}",
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "Puntuación total: ${game.totalScore}",
+                    style: const TextStyle(fontSize: 20),
+                  ),
 
                   const SizedBox(height: 10),
 
@@ -86,6 +98,7 @@ class GameScreen extends StatelessWidget {
                   // Palabra
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+
                     children: game.secretWord.split(" ").map((word) {
                       return Wrap(
                         alignment: WrapAlignment.center,
