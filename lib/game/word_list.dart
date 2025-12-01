@@ -42,7 +42,7 @@ const wordList = [
   Adivinanza(word: "NATHAN SWIFT", image: "assets/Siluetas/Personajes/Silu_Nathan_Swift.png"),
   Adivinanza(word: "PAUL PEABODY", image: "assets/Siluetas/Personajes/Silu_Paul_Peabody.png"),
   Adivinanza(word: "PINGUINO EMPERADOR", image: "assets/Siluetas/Personajes/Silu_Pinguino_Emperador.png"),
-  Adivinanza(word: "SEAL", image: "assets/Siluetas/Personajes/Silu_Sael.png"),
+  Adivinanza(word: "SAEL", image: "assets/Siluetas/Personajes/Silu_Sael.png"),
   Adivinanza(word: "SHAWN FROSTE", image: "assets/Siluetas/Personajes/Silu_Shawn_Froste.png"),
   Adivinanza(word: "SPOTTER", image: "assets/Siluetas/Personajes/Silu_Spotter.png"),
   Adivinanza(word: "THIAGO TORRES", image: "assets/Siluetas/Personajes/Silu_Thiago_Torres.png"),
