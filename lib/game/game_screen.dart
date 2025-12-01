@@ -74,6 +74,14 @@ class GameScreen extends StatelessWidget {
                     "Errores: ${game.mistakes}/${game.maxMistakes}",
                     style: const TextStyle(fontSize: 24),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: LinearProgressIndicator(
+                      value: (game.maxMistakes - game.mistakes) / game.maxMistakes,
+                      backgroundColor: Colors.red.shade200,
+                      valueColor: const AlwaysStoppedAnimation(Colors.green),
+                    ),
+                  ),
                   Text(
                     "Puntuación palabra: ${game.score}",
                     style: const TextStyle(fontSize: 20),
@@ -108,7 +116,12 @@ class GameScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(6),
                             child: Text(
                               show ? char : "_",
-                              style: const TextStyle(fontSize: 32),
+                              style: const TextStyle(
+                                fontSize: 32,
+                                shadows: [
+                                  Shadow(offset: Offset(2, 2), blurRadius: 3, color: Colors.black38)
+                                ],
+                              ),
                             ),
                           );
                         }).toList(),
@@ -126,19 +139,37 @@ class GameScreen extends StatelessWidget {
                     alignment: WrapAlignment.center,
                     children: List.generate(26, (i) {
                       String letter = String.fromCharCode(65 + i);
-                      bool disabled = game.guessed.contains(letter) || game.win || game.lose;
+
+                      // Determinar color según acierto/fallo
+                      Color backgroundColor = Colors.blue; // default
+                      if (game.correctLetters.contains(letter)) {
+                        backgroundColor = Colors.green; // letra correcta
+                      } else if (game.wrongLetters.contains(letter)) {
+                        backgroundColor = Colors.red; // letra incorrecta
+                      }
+
+                      // Solo desactivamos interacción si la partida terminó
+                      bool canPress = !(game.win || game.lose);
 
                       return SizedBox(
                         width: MediaQuery.of(context).size.width * 0.16,
                         child: ElevatedButton(
-                          onPressed: disabled ? null : () => game.guess(letter),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: backgroundColor,
+                            foregroundColor: Colors.white,
+                          ),
+                            onPressed: canPress
+                                ? () {
+                              if (!game.guessed.contains(letter)) {
+                                context.read<GameState>().guess(letter);
+                              }
+                            }
+                                : null,
                           child: Text(letter),
                         ),
                       );
                     }),
                   ),
-
-                  const SizedBox(height: 40),
                 ],
               ),
             ),

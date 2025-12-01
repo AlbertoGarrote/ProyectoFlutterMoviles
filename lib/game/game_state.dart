@@ -10,6 +10,9 @@ class GameState extends ChangeNotifier {
   int score = 0;
   int totalScore = 0;
 
+  Set<String> correctLetters = {};
+  Set<String> wrongLetters = {};
+
   // Estado actual de la palabra
   late String secretWord;
   late String secretImage;
@@ -41,6 +44,8 @@ class GameState extends ChangeNotifier {
     guessed = [];
     mistakes = 0;
     score = 100;
+    correctLetters.clear();
+    wrongLetters.clear();
 
     // Ajusta maxMistakes según dificultad
     switch (difficulty) {
@@ -64,7 +69,10 @@ class GameState extends ChangeNotifier {
     if (guessed.contains(letter) || isGameOver) return;
 
     guessed.add(letter);
-    if (!secretWord.contains(letter)) {
+    if (secretWord.contains(letter)) {
+      correctLetters.add(letter);
+    } else {
+      wrongLetters.add(letter);
       mistakes++;
       score -= 15;
       if (score < 0) score = 0;
