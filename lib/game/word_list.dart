@@ -36,7 +36,7 @@ const wordList = [
   Adivinanza(word: "CHANGSU CHOI", image: "assets/Siluetas/Personajes/Silu_Changsu_Choi.png"),
   Adivinanza(word: "DAVID SAMFORD", image: "assets/Siluetas/Personajes/Silu_David_Samford.png"),
   Adivinanza(word: "DVALIN", image: "assets/Siluetas/Personajes/Silu_Dvalin.png"),
-  Adivinanza(word: "HEART MOORE", image: "assets/Siluetas/Personajes/Silu_Heath_Moore.png"),
+  Adivinanza(word: "HEATH MOORE", image: "assets/Siluetas/Personajes/Silu_Heath_Moore.png"),
   Adivinanza(word: "JACK WALLSIDE", image: "assets/Siluetas/Personajes/Silu_Jack_Wallside.png"),
   Adivinanza(word: "MARK EVANS", image: "assets/Siluetas/Personajes/Silu_Mark_Evans.png"),
   Adivinanza(word: "NATHAN SWIFT", image: "assets/Siluetas/Personajes/Silu_Nathan_Swift.png"),
